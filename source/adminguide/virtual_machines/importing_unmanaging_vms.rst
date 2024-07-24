@@ -148,7 +148,7 @@ importUnmanagedInstance API
    - **migrateallowed** (Instance and its volumes are allowed to migrate to different host/storage pool when offering tags conflict with host/storage pool)
    - **forced** (If true, an Instance is imported despite some of its NIC's MAC addresses being already present)
 
-.. note:: The `forced` parameter is false by default and thus prevents importing an Instance which has a NIC containing a MAC address that has been previously assigned by CloudStack to another existing VM. If it is set to true, importing a VM with such already-used MAC addresses of the NICS will be allowed. This should be done with a full understanding of possible consequences due to duplicate MAC addresses.
+.. note:: The `forced` parameter is false by default and thus prevents importing an Instance which has a NIC containing a MAC address that has been previously assigned by CloudStack to another existing VM. If it is set to true, importing a VM with such already-used MAC addresses of the NICS will be allowed, however, the original MAC address will be replaced with a newly generated MAC address.
 
 **Response**:
 
@@ -437,8 +437,6 @@ those same credentials are later used for SSH authentication when the QCOW2 imag
 .. parsed-literal::
    - **zoneid** (Zone to which Instance will be imported)
    - **host** (the host name or IP address of External Host)
-   - **username** (the username of External Host for authentication)
-   - **password** (the password of External Host for authentication)
 
 **Response**:
 
@@ -498,7 +496,7 @@ choose the temporary storage location on the external host for the converted fil
    - **details** (Map for Instance details)
    - **forced** (If true, an Instance is imported despite some of its NIC's MAC addresses being already present)
 
-.. note:: The `forced` parameter is false by default and thus prevents importing an Instance which has a NIC containing a MAC address that has been previously assigned by CloudStack to another existing VM. If it is set to true, importing a VM with such already-used MAC addresses of the NICS will be allowed. This should be done with a full understanding of possible consequences due to duplicate MAC addresses.
+.. note:: The `forced` parameter is false by default and thus prevents importing an Instance which has a NIC containing a MAC address that has been previously assigned by CloudStack to another existing VM. If it is set to true, importing a VM with such already-used MAC addresses of the NICS will be allowed, however, the original MAC address will be replaced with a newly generated MAC address.
 
 **Response**:
 
