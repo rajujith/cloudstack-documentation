@@ -80,6 +80,8 @@ label.mountopts     Any mount point options to be passed while mouting this stor
 Zone                The zone in CloudStack with which this Backup Repository must be associated.
 =================== ========================
 
+ .. figure:: /_static/images/B&R-Backup-Respository.png
+      :align:   center
 
 Once the Backup Repository is created, we need to add a Backup Offering, in this plugin the Backup offering is a placeholder to associate an instance to a Backup Repository. While creating the Backup Offering, select the desired Backup Repository. Associate the Backup Offering on an instance to create an Adhoc or scheduled backup. 
 
