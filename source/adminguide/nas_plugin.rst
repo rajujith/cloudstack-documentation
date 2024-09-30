@@ -58,7 +58,7 @@ to perform support B&R actions and operations.
 
 Using the NAS Backup and Recovery Plugin
 ----------------------------------------
-To use the NAS Backup and Recovery Plugin, the Backup and Recovery framework needs to be enabled first. Then the backup plugin 'nas' needs to be enabled on either the global setting or on the zone settings. 
+To use the NAS Backup and Recovery Plugin, the Backup and Recovery framework needs to be enabled first. Then the backup plugin 'nas' needs to be enabled on either the global or zone settings. 
 
 ================================= ========================
 Configuration                     Value
@@ -73,7 +73,7 @@ Navigate to the configuration -> Backup Repository. Click on 'Add Backup Reposit
 =================== ========================
 Field               Value
 =================== ========================
-Name                N suitable name to represent the Backup Repository
+Name                A suitable name to represent the Backup Repository
 Address             URL, in case of NFS <server IP>:/path
 Type                NFS ( only NFS type in 4.20)
 label.mountopts     Any mount point options to be passed while mouting this storage on the hypervisor. 
