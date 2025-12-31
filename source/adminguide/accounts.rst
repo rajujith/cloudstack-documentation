@@ -657,35 +657,44 @@ Configure CloudStack LDAP Settings
 
 Configure the following LDAP-related settings in the global settings:
 
-.. cssclass:: table-striped table-bordered table-hover
+.. list-table:: LDAP Settings (Active Directory)
+   :header-rows: 1
 
-====================================   ================================   =====================================================================
-Setting                                Example Value                     Description
-====================================   ================================   =====================================================================
-ldap.basedn                            DC=company,DC=com                  Base DN for LDAP searches.
+   * - Setting
+     - Active Directory
+     - Description
+   * - ``ldap.basedn``
+     - ``DC=company,DC=com``
+     - Sets the base DN for LDAP searches.
+   * - ``ldap.search.group.principle``
+     - ``CN=ACSGroup,CN=Users,DC=company,DC=com``
+     - *(Optional)* If set, only users belonging to this group are listed.
+   * - ``ldap.bind.principle``
+     - ``CN=ACSServiceAccount,CN=Users,DC=company,DC=com``
+     - Service account used to list users under the configured base DN.
+       Avoid using privileged accounts such as ``Administrator``.
+   * - ``ldap.bind.password``
+     - ``****************``
+     - Password for the bind DN. Entered in plain text but stored encrypted.
+   * - ``ldap.user.object``
+     - ``user``
+     - LDAP object class representing user accounts.
+   * - ``ldap.email.attribute``
+     - ``mail``
+     - Attribute used to retrieve the user email address.
+   * - ``ldap.firstname.attribute``
+     - ``givenName``
+     - Attribute used to retrieve the user first name.
+   * - ``ldap.lastname.attribute``
+     - ``sn``
+     - Attribute used to retrieve the user last name.
+   * - ``ldap.group.object``
+     - ``groupOfUniqueNames``
+     - LDAP object class representing groups.
+   * - ``ldap.group.user.uniquemember``
+     - ``uniqueMember``
+     - Attribute defining user membership within a group.
 
-ldap.search.group.principle            CN=ACSGroup,CN=Users,DC=company,DC=com
-                                                                     *(Optional)* If set, only users belonging to this group are listed.
-
-ldap.bind.principal                    CN=ACSServiceAccount,CN=Users,DC=company,DC=com
-                                                                     Service account used to list users under the configured base DN.  
-                                                                     Avoid using privileged accounts such as ``Administrator``.
-
-ldap.bind.password                    ****************                    Password for the bind DN.  
-                                                                     Entered in plain text but stored encrypted.
-
-ldap.user.object                       user                                LDAP object class representing user accounts.
-
-ldap.email.attribute                   mail                                Attribute used to retrieve the user email address.
-
-ldap.firstname.attribute               givenName                           Attribute used to retrieve the user first name.
-
-ldap.lastname.attribute                sn                                  Attribute used to retrieve the user last name.
-
-ldap.group.object                      groupOfUniqueNames                  LDAP object class representing groups.
-
-ldap.group.user.uniquemember           uniqueMember                        Attribute defining user membership within a group.
-====================================   ================================   =====================================================================
 
 
 Restart CloudStack Management Services
