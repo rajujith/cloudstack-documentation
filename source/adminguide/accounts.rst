@@ -488,49 +488,69 @@ OpenLDAP)
    :header-rows: 1
 
    * - Setting
-     - OpenLDAP
-     - Active Directory
+     - OpenLDAP / Active Directory
      - Description
    * - ``ldap.basedn``
-     - `Ex: OU=APAC, DC=company, DC=com`
-     - `Ex: DC=company, DC=com`
-     - Sets the basedn for LDAP.
+     - ``OU=APAC,DC=company,DC=com``
+     - Sets the base DN for LDAP searches.
    * - ``ldap.search.group.principle``
-     - `Ex: CN=ACSGroup, DC=company, DC=com`
-     - `Ex: CN=ACSGroup, CN=Users, DC=company, DC=com`
-     - (optional) if set only Users from this group are listed.
+     - ``CN=ACSGroup,DC=company,DC=com``
+     - *(Optional)* If set, only users belonging to this group are listed.
    * - ``ldap.bind.principal``
-     - `Ex: CN=ACSServiceAccount, OU=APAC, DC=company, DC=com`
-     - `Ex: CN=ACSServiceAccount, CN=Users, DC=company, DC=com`
-     - Service account that can list all the Users in the above basedn. Avoid using privileged account such as Administrator.
+     - ``CN=ACSServiceAccount,OU=APAC,DC=company,DC=com``
+     - Service account used to list users under the configured base DN.
+       Avoid using privileged accounts such as ``Administrator``.
    * - ``ldap.bind.password``
-     - `******************`
-     - `******************`
-     - Password for a DN User. Is entered in plain text but gets stored encrypted.
+     - ``****************``
+     - Password for the bind DN. Entered in plain text but stored encrypted.
    * - ``ldap.user.object``
-     - `interorgperson`
-     - `user`
-     - Object type of Users within LDAP.
+     - * OpenLDAP: ``inetOrgPerson``
+       * Active Directory: ``user``
+     - LDAP object class representing user accounts.
    * - ``ldap.email.attribute``
-     - `mail`
-     - `mail`
-     - Email attribute within ldap for a User.
+     - ``mail``
+     - Attribute used to retrieve the user email address.
    * - ``ldap.firstname.attribute``
-     - `givenname`
-     - `givenname`
-     - firstname attribute within ldap for a User.
+     - ``givenName``
+     - Attribute used to retrieve the user first name.
    * - ``ldap.lastname.attribute``
-     - `sn`
-     - `sn`
-     - lastname attribute within ldap for a User.
+     - ``sn``
+     - Attribute used to retrieve the user last name.
    * - ``ldap.group.object``
-     - `groupOfUniqueNames`
-     - `groupOfUniqueNames`
-     - Object type of groups within LDAP.
+     - * OpenLDAP: ``groupOfUniqueNames``
+       * Active Directory: ``group``
+     - LDAP object class representing groups.
    * - ``ldap.group.user.uniquemember``
-     - `uniquemember`
-     - `uniquemember`
-     - Attribute for uniquemembers within a group.
+     - ``uniqueMember``
+     - Attribute defining user membership within a group.
+   * - ``ldap.username.attribute``
+     - * OpenLDAP: ``uid``
+       * Active Directory: ``sAMAccountName``
+     - Sets the username attribute used within LDAP.
+   * - ``ldap.nested.groups.enable``
+     - ``true``
+     - If true, nested groups will also be queried.
+   * - ``ldap.provider``
+     - * OpenLDAP: ``openldap``
+       * Active Directory: ``microsftad``
+     - LDAP provider (e.g. ``openldap``, ``microsoftad``).
+
+
+
+Restart CloudStack Management Services
+
+
+After updating the configuration, restart the CloudStack Management Server:
+
+.. code-block:: bash
+
+   systemctl restart cloudstack-management
+
+Notes
+
+
+* Configuration changes do not take effect until the management service is restarted.
+
 
    .. note:: ``ldap.search.group.principle`` is required when using ``linkaccounttoldap``.
 
@@ -572,9 +592,6 @@ the CloudStack Management Server must trust the TLS certificate presented by the
 LDAP server. This trust is established by importing the LDAP server certificate
 into a Java truststore and configuring CloudStack to use that truststore for LDAP
 communication.
-
-This procedure uses the **manual certificate import method** used for LDAP/LDAPS
-integration in CloudStack and Microsoft AD.
 
 Retrieve the LDAP Server Certificate
 
@@ -653,51 +670,9 @@ Example path:
 
    /etc/cloudstack/management/cloudstack-ldap-truststore.jks
 
-Configure CloudStack LDAP Settings
-
-Configure the following LDAP-related settings in the global settings:
-
-.. list-table:: LDAP Settings (Active Directory)
-   :header-rows: 1
-
-   * - Setting
-     - Active Directory
-     - Description
-   * - ``ldap.basedn``
-     - ``DC=company,DC=com``
-     - Sets the base DN for LDAP searches.
-   * - ``ldap.search.group.principle``
-     - ``CN=ACSGroup,CN=Users,DC=company,DC=com``
-     - *(Optional)* If set, only users belonging to this group are listed.
-   * - ``ldap.bind.principle``
-     - ``CN=ACSServiceAccount,CN=Users,DC=company,DC=com``
-     - Service account used to list users under the configured base DN.
-       Avoid using privileged accounts such as ``Administrator``.
-   * - ``ldap.bind.password``
-     - ``****************``
-     - Password for the bind DN. Entered in plain text but stored encrypted.
-   * - ``ldap.user.object``
-     - ``user``
-     - LDAP object class representing user accounts.
-   * - ``ldap.email.attribute``
-     - ``mail``
-     - Attribute used to retrieve the user email address.
-   * - ``ldap.firstname.attribute``
-     - ``givenName``
-     - Attribute used to retrieve the user first name.
-   * - ``ldap.lastname.attribute``
-     - ``sn``
-     - Attribute used to retrieve the user last name.
-   * - ``ldap.group.object``
-     - ``groupOfUniqueNames``
-     - LDAP object class representing groups.
-   * - ``ldap.group.user.uniquemember``
-     - ``uniqueMember``
-     - Attribute defining user membership within a group.
 
 
-
-Restart CloudStack Management Services
+Restart CloudStack Management Services after updating the global settings.
 
 
 After updating the configuration, restart the CloudStack Management Server:
@@ -710,11 +685,8 @@ Notes
 
 
 * Configuration changes do not take effect until the management service is restarted.
-* This procedure as it is applies to the **manual LDAP certificate import method** used by
-  CloudStack bt can be referenced for other methods as well.
 * Certificate renewal on the LDAP server requires repeating this procedure and
   redeploying the updated truststore.
-
 
 
 
