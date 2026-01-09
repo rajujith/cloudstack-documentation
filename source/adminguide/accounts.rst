@@ -486,6 +486,7 @@ OpenLDAP)
 
 .. list-table:: LDAP Settings
    :header-rows: 1
+   :widths: 20 30 50
 
    * - Setting
      - OpenLDAP / Active Directory
