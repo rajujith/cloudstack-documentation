@@ -484,57 +484,22 @@ In addition to those shown in the example script above, the following
 configuration items can be configured on a Global or on a per Domain level (the default values are for
 OpenLDAP) 
 
-.. list-table:: LDAP Settings
-   :header-rows: 1
-   :widths: 20 30 50
+| Setting                        | OpenLDAP / Active Directory                                      | Description                                                                 |
+|--------------------------------|------------------------------------------------------------------|-----------------------------------------------------------------------------|
+| `ldap.basedn`                  | `OU=APAC,`<br>`DC=company,DC=com`                                | Sets the base DN for LDAP searches.                                          |
+| `ldap.search.group.principle`  | `CN=ACSGroup,`<br>`DC=company,DC=com`                            | *(Optional)* If set, only users belonging to this group are listed.          |
+| `ldap.bind.principal`          | `CN=ACSServiceAccount,OU=APAC,`<br>`DC=company,DC=com`           | Service account used to list users under the configured base DN. Avoid using privileged accounts such as `Administrator`. |
+| `ldap.bind.password`           | `****************`                                               | Password for the bind DN. Entered in plain text but stored encrypted.        |
+| `ldap.user.object`             | OpenLDAP: `inetOrgPerson`<br>Active Directory: `user`            | LDAP object class representing user accounts.                                |
+| `ldap.email.attribute`         | `mail`                                                           | Attribute used to retrieve the user email address.                           |
+| `ldap.firstname.attribute`     | `givenName`                                                      | Attribute used to retrieve the user first name.                              |
+| `ldap.lastname.attribute`      | `sn`                                                             | Attribute used to retrieve the user last name.                               |
+| `ldap.group.object`            | OpenLDAP: `groupOfUniqueNames`<br>Active Directory: `group`      | LDAP object class representing groups.                                       |
+| `ldap.group.user.uniquemember` | `uniqueMember`                                                   | Attribute defining user membership within a group.                           |
+| `ldap.username.attribute`      | OpenLDAP: `uid`<br>Active Directory: `sAMAccountName`            | Sets the username attribute used within LDAP.                                |
+| `ldap.nested.groups.enable`    | `true`                                                           | If true, nested groups will also be queried.                                 |
+| `ldap.provider`                | OpenLDAP: `openldap`<br>Active Directory: `microsoftad`          | LDAP provider (e.g. `openldap`, `microsoftad`).                              |
 
-   * - Setting
-     - OpenLDAP / Active Directory
-     - Description
-   * - ``ldap.basedn``
-     - ``OU=APAC,DC=company,DC=com``
-     - Sets the base DN for LDAP searches.
-   * - ``ldap.search.group.principle``
-     - ``CN=ACSGroup,DC=company,DC=com``
-     - *(Optional)* If set, only users belonging to this group are listed.
-   * - ``ldap.bind.principal``
-     - ``CN=ACSServiceAccount,OU=APAC,DC=company,DC=com``
-     - Service account used to list users under the configured base DN.
-       Avoid using privileged accounts such as ``Administrator``.
-   * - ``ldap.bind.password``
-     - ``****************``
-     - Password for the bind DN. Entered in plain text but stored encrypted.
-   * - ``ldap.user.object``
-     - * OpenLDAP: ``inetOrgPerson``
-       * Active Directory: ``user``
-     - LDAP object class representing user accounts.
-   * - ``ldap.email.attribute``
-     - ``mail``
-     - Attribute used to retrieve the user email address.
-   * - ``ldap.firstname.attribute``
-     - ``givenName``
-     - Attribute used to retrieve the user first name.
-   * - ``ldap.lastname.attribute``
-     - ``sn``
-     - Attribute used to retrieve the user last name.
-   * - ``ldap.group.object``
-     - * OpenLDAP: ``groupOfUniqueNames``
-       * Active Directory: ``group``
-     - LDAP object class representing groups.
-   * - ``ldap.group.user.uniquemember``
-     - ``uniqueMember``
-     - Attribute defining user membership within a group.
-   * - ``ldap.username.attribute``
-     - * OpenLDAP: ``uid``
-       * Active Directory: ``sAMAccountName``
-     - Sets the username attribute used within LDAP.
-   * - ``ldap.nested.groups.enable``
-     - ``true``
-     - If true, nested groups will also be queried.
-   * - ``ldap.provider``
-     - * OpenLDAP: ``openldap``
-       * Active Directory: ``microsftad``
-     - LDAP provider (e.g. ``openldap``, ``microsoftad``).
 
 
 
